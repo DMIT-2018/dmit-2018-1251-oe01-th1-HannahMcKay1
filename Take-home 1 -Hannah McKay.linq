@@ -42,6 +42,8 @@ ClubActivities
 //prioritize resourcing and scheduling decisions.
 
 Programs
+	.Where(program => program.ProgramCourses.Count(course => course.Required) >= 22)
+	.OrderBy(program => program.ProgramName)
 	.Select(program => new
 	{
 		School = program.SchoolCode == "SAMIT" ? "School of Advance Media and IT"
@@ -52,9 +54,6 @@ Programs
 		RequiredCourseCount = program.ProgramCourses.Count(course => course.Required),
 		OptionalCourseCount = program.ProgramCourses.Count(course => !course.Required)
 	})
-
-	.Where(program => program.RequiredCourseCount >= 22)
-	.OrderBy(program => program.Program)
 	.Dump();
 
 //Question 3: 
